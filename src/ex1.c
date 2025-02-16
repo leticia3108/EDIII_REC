@@ -1,20 +1,6 @@
 #include "../include/ex1.h"
 #include "../include/funcoes_fornecidas.h"
 
-void printSDados(const sDados* data) {
-    printf("Removido: %c\n", data->removido);
-    printf("Encadeamento: %d\n", data->encadeamento);
-    printf("População: %d\n", data->populacao);
-    printf("Tamanho: %.2f %c\n", data->tamanho, data->unidadeMedida);
-    printf("Velocidade: %d km/h\n", data->velocidade);
-    printf("Nome: %s\n", data->nome);
-    printf("Espécie: %s\n", data->especie);
-    printf("Habitat: %s\n", data->habitat);
-    printf("Tipo: %s\n", data->tipo);
-    printf("Dieta: %s\n", data->dieta);
-    printf("Alimento: %s\n\n", data->alimento);
-}
-
 void EscreveCabecalho(FILE* arqDados, FILE* arqBin, sCab cab){
     fwrite (&cab.status, sizeof(char), 1, arqBin);
     fwrite (&cab.topo, sizeof(int), 1, arqBin);
@@ -105,6 +91,7 @@ int LeLinhaCSV(FILE* arqDados, sDados* dado){
 
     //printSDados(dado);
     free (orgLinha);
+
     return 1;
 
 }
@@ -115,22 +102,18 @@ void ex1(){
     varg = malloc (2 * ARG_TAM * sizeof(char));
     LeArgumento(varg);
 
-    char nomeArq[STR_TAM];
-    strcpy (nomeArq, varg[0]);
-
-    FILE* arqDados = fopen(nomeArq,"r");
+    FILE* arqDados = fopen(varg[0],"r");
 
     if (!arqDados){
-        printf("Erro na abertura do arquivo de dados, (%s)", nomeArq);
+        printf("Erro na abertura do arquivo de dados, (%s)", varg[0]);
         return;
     }
 
-    strcpy (nomeArq, varg[1]);
 
-    FILE* arqBin = fopen(nomeArq, "w");
+    FILE* arqBin = fopen(varg[1], "w");
 
     if (!arqBin){
-        printf("Erro na criacao do arquivo binario, (%s)", nomeArq);
+        printf("Erro na criacao do arquivo binario, (%s)", varg[1]);
         fclose(arqDados);
         return;
     }
@@ -164,7 +147,7 @@ void ex1(){
 
 
     fclose (arqBin);
-    binarioNaTela(nomeArq);
+    binarioNaTela(varg[1]);
     
     fclose(arqDados);
     free(varg);
