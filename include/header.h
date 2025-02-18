@@ -11,6 +11,17 @@
 #define REG_CAB 160
 #define REG_DADOS 160
 
+#define CHAVE_NOME 1
+#define CHAVE_ESPECIE 2
+#define CHAVE_HABITAT 3
+#define CHAVE_TIPO 4
+#define CHAVE_DIETA 5
+#define CHAVE_ALIMENTO 6
+#define CHAVE_POPULACAO 7
+#define CHAVE_TAMANHO 8
+#define CHAVE_UNIDADE 9
+#define CHAVE_VELOCIDADE 10
+
 typedef struct {
     char status;
     int topo;
@@ -38,5 +49,8 @@ typedef struct {
 int LeArgumento(char (*)[ARG_TAM]);
 void printSDados(const sDados* data);
 int imprimeSDado(const sDados* dado);
+int LeBinario(FILE* arqBin, sDados* dado);
+int LeCabecalho (FILE* arqBin);
+char (*TrataAspas(char (*varg) [ARG_TAM], int n))[ARG_TAM];
 
 #endif
