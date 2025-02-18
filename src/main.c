@@ -1,10 +1,11 @@
 #include "../include/ex1.h"
 #include "../include/ex2.h"
+#include "../include/ex3.h"
 
 int LeArgumento(char (*varg) [ARG_TAM]){
     int i = 0;
-    char linha[ARG_TAM];
-    fgets(linha, ARG_TAM, stdin);
+    char linha[LIN_TAM];
+    fgets(linha, LIN_TAM, stdin);
 
     char* token = strtok (linha, " \n");
     
@@ -36,7 +37,7 @@ void printSDados(const sDados* data) {
 int imprimeSDado(const sDados* dado) {
 
     if (dado->removido == '1'){
-        return 1;}
+        return 0;}
     
     printf("Nome: %s\n", dado->nome);
     printf("Especie: %s\n", dado->especie);
@@ -60,6 +61,65 @@ int imprimeSDado(const sDados* dado) {
 
 }
 
+
+int LeCabecalho (FILE* arqBin){
+
+    char status;
+    fread(&status, 1, 1, arqBin);
+    fseek(arqBin, 1600, SEEK_SET);
+
+    if (status == '0'){
+        printf("Falha no processamento do arquivo.");
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+int LeBinario(FILE* arqBin, sDados* dado){
+
+   char linha[REG_DADOS];
+   char* regVar = malloc (REG_DADOS * sizeof(char));
+   char* regVarOrg = regVar;
+
+   if (!(fread(linha, sizeof(char), REG_DADOS, arqBin))){
+        return 0;
+   }
+
+   dado->removido = linha[0];
+
+   if (dado->removido == '1'){
+    return 1;}
+
+   memcpy(&(dado->encadeamento), linha + 1, 4);
+
+   memcpy(&(dado->populacao), linha + 5, 4);
+
+   memcpy(&(dado->tamanho), linha + 9, 4);
+
+   strncpy(&(dado->unidadeMedida), linha + 13, 1);
+
+   memcpy(&(dado->velocidade), linha + 14, 4);
+
+   strncpy(regVar, linha + 18, REG_DADOS - 18);
+
+   strcpy(dado->nome, strsep (&regVar, "#"));
+
+   strcpy(dado->especie, strsep (&regVar, "#"));
+
+   strcpy(dado->habitat, strsep (&regVar, "#"));
+
+   strcpy(dado->tipo, strsep (&regVar, "#"));
+
+   strcpy(dado->dieta, strsep (&regVar, "#"));
+
+   strcpy(dado->alimento, strsep (&regVar, "#"));
+
+   free (regVarOrg);
+
+   return 1;
+}
+
 int main() {
     // Leitura da entrada inicial do usuário
     int opcao = 0;
@@ -72,10 +132,10 @@ int main() {
             ex1();
             break;
          case 2:
-             ex2();
-             break;
+            ex2();
+            break;
         case 3:
-            //ex3();
+            ex3();
             break;
         case 4:
             //ex4();

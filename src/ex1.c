@@ -105,7 +105,7 @@ void ex1(){
     FILE* arqDados = fopen(varg[0],"r");
 
     if (!arqDados){
-        printf("Erro na abertura do arquivo de dados, (%s)", varg[0]);
+        printf("Falha no processamento do arquivo.");
         return;
     }
 
