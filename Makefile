@@ -8,7 +8,7 @@ SRC_DIR = src
 INC_DIR = include
 
 # Linking dos objetos
-all: 
+all:
 	$(CC) $(CFLAGS) $(OBJ) $(SOURCES) -o exec
 
 zip: 

@@ -10,6 +10,7 @@
 #define LIN_TAM 500
 #define REG_CAB 160
 #define REG_DADOS 160
+#define PAG_TAM 1600
 
 #define CHAVE_NOME 1
 #define CHAVE_ESPECIE 2
@@ -48,9 +49,17 @@ typedef struct {
 
 int LeArgumento(char (*)[ARG_TAM]);
 void printSDados(const sDados* data);
-int imprimeSDado(const sDados* dado);
+int ImprimeSDado(const sDados* dado);
 int LeBinario(FILE* arqBin, sDados* dado);
-int LeCabecalho (FILE* arqBin);
+int VerificaCabecalho (FILE* arqBin);
+int LeCabecalho (FILE* arqBin, sCab* cab);
 char (*TrataAspas(char (*varg) [ARG_TAM], int n))[ARG_TAM];
+int ComparaCampo(sDados* dado, char* comp, int chave);
+int ChaveCampo(char* strCampo);
+int EscreveBinario(FILE* arqBin, const sDados dado);
+void EscreveCabecalho(FILE* arqBin, sCab cab);
+int LeLinhaCSV(FILE* arqDados, sDados* dado);
+int LeCabecalho (FILE* arqBin, sCab* cab);
+
 
 #endif
