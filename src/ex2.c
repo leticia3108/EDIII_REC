@@ -17,7 +17,7 @@ void ex2(){
     int numReg = 0;
     int numImp = 0;
 
-    if ( LeCabecalho(arqBin) == 0){
+    if ( VerificaCabecalho(arqBin) == 0){
         return;
     };
 
@@ -26,10 +26,10 @@ void ex2(){
         return;
     } else {
         numReg ++;
-        numImp += imprimeSDado(dado);
+        numImp += ImprimeSDado(dado);
         while (LeBinario(arqBin,dado)){
             numReg ++;
-            numImp += imprimeSDado(dado);
+            numImp += ImprimeSDado(dado);
         }
     }
 
